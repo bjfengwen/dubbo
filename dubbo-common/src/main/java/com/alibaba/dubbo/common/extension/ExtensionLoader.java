@@ -36,13 +36,6 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Pattern;
 
 /**
- * Load dubbo extensions
- * <ul>
- * <li>auto inject dependency extension </li>
- * <li>auto wrap extension in wrapper </li>
- * <li>default extension is an adaptive instance</li>
- * </ul>
- *
  * 拓展加载器
  *
  * Dubbo使用的扩展点获取。<p>
@@ -62,7 +55,7 @@ import java.util.regex.Pattern;
  * @see com.alibaba.dubbo.common.extension.Adaptive
  * @see com.alibaba.dubbo.common.extension.Activate
  */
-@SuppressWarnings("deprecation")
+
 public class ExtensionLoader<T> {
 
     private static final Logger logger = LoggerFactory.getLogger(ExtensionLoader.class);
@@ -109,11 +102,10 @@ public class ExtensionLoader<T> {
      * 例如，StubProxyFactoryWrapper 中有 `Protocol protocol` 属性。
      */
     private final ExtensionFactory objectFactory;
+
     /**
      * 缓存的拓展名与拓展类的映射。
-     *
      * 和 {@link #cachedClasses} 的 KV 对调。
-     *
      * 通过 {@link #loadExtensionClasses} 加载
      */
     private final ConcurrentMap<Class<?>, String> cachedNames = new ConcurrentHashMap<Class<?>, String>();
@@ -404,11 +396,6 @@ public class ExtensionLoader<T> {
     }
 
     /**
-     * Get extension's instance. Return <code>null</code> if extension is not found or is not initialized. Pls. note
-     * that this method will not trigger extension load.
-     * <p>
-     * In order to trigger extension load, call {@link #getExtension(String)} instead.
-     *
      * @see #getExtension(String)
      */
     /**
@@ -448,10 +435,6 @@ public class ExtensionLoader<T> {
         return Collections.unmodifiableSet(new TreeSet<String>(cachedInstances.keySet()));
     }
 
-    /**
-     * Find the extension with the given name. If the specified name is not found, then {@link IllegalStateException}
-     * will be thrown.
-     */
     /**
      * 返回指定名字的扩展对象。如果指定名字的扩展不存在，则抛异常 {@link IllegalStateException}.
      *

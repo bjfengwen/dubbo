@@ -127,7 +127,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
     // reference to interface impl
     private T ref;
     // service name
-    private String path; // TODO 芋艿
+    private String path;
     // method configuration
     private List<MethodConfig> methods;
     private ProviderConfig provider;
