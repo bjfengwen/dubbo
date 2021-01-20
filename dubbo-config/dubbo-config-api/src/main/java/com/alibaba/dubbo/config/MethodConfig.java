@@ -37,43 +37,43 @@ public class MethodConfig extends AbstractMethodConfig {
     private String name;
 
     // stat
-    private Integer stat; // TODO 芋艿
+    private Integer stat;
 
     // whether to retry
     private Boolean retry;
 
     // if it's reliable
-    private Boolean reliable; // TODO 芋艿
+    private Boolean reliable;
 
     // thread limits for method invocations
-    private Integer executes; // TODO 芋艿
+    private Integer executes;
 
     // if it's deprecated
     private Boolean deprecated;
 
     // whether to enable sticky
-    private Boolean sticky; // TODO 芋艿
+    private Boolean sticky;
 
     // whether need to return
-    private Boolean isReturn; // TODO 芋艿
+    private Boolean isReturn;
 
     // callback instance when async-call is invoked
-    private Object oninvoke; // TODO 芋艿
+    private Object oninvoke;
 
     // callback method when async-call is invoked
-    private String oninvokeMethod; // TODO 芋艿
+    private String oninvokeMethod;
 
     // callback instance when async-call is returned
-    private Object onreturn; // TODO 芋艿
+    private Object onreturn;
 
     // callback method when async-call is returned
-    private String onreturnMethod; // TODO 芋艿
+    private String onreturnMethod;
 
     // callback instance when async-call has exception thrown
-    private Object onthrow; // TODO 芋艿
+    private Object onthrow;
 
     // callback method when async-call has exception thrown
-    private String onthrowMethod; // TODO 芋艿
+    private String onthrowMethod;
 
     private List<ArgumentConfig> arguments;
 

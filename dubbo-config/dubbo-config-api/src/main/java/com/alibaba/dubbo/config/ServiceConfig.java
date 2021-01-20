@@ -150,7 +150,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
      *
      * 状态字段，非配置。
      */
-    private volatile String generic; // TODO 芋艿
+    private volatile String generic;
 
     public ServiceConfig() {
     }
@@ -413,7 +413,6 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
         }
         // 暴露服务
         doExportUrls();
-        // TODO 芋艿，等待 qos
         ProviderModel providerModel = new ProviderModel(getUniqueServiceName(), this, ref);
         ApplicationModel.initProviderModel(getUniqueServiceName(), providerModel);
     }
@@ -629,7 +628,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
                         // "dynamic" ：服务是否动态注册，如果设为false，注册后将显示后disable状态，需人工启用，并且服务提供者停止时，也不会自动取消册，需人工禁用。
                         url = url.addParameterIfAbsent("dynamic", registryURL.getParameter("dynamic"));
                         // 获得监控中心 URL
-                        URL monitorUrl = loadMonitor(registryURL); // TODO 芋艿，监控
+                        URL monitorUrl = loadMonitor(registryURL);
                         if (monitorUrl != null) {
                             url = url.addParameterAndEncoded(Constants.MONITOR_KEY, monitorUrl.toFullString());
                         }
@@ -641,6 +640,19 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
 
                         // 创建 DelegateProviderMetaDataInvoker 对象
                         DelegateProviderMetaDataInvoker wrapperInvoker = new DelegateProviderMetaDataInvoker(invoker, this);
+                        //wrapperInvoker.url.Protocol=registry
+                        //protocol= Protocol$Adaptive 生成的类方法
+
+                        /*public com.alibaba.dubbo.rpc.Exporter export(com.alibaba.dubbo.rpc.Invoker arg0) throws com.alibaba.dubbo.rpc.RpcException {
+                            if (arg0 == null) throw new IllegalArgumentException("com.alibaba.dubbo.rpc.Invoker argument == null");
+                            if (arg0.getUrl() == null) throw new IllegalArgumentException("com.alibaba.dubbo.rpc.Invoker argument getUrl() == null");com.alibaba.dubbo.common.URL url = arg0.getUrl();
+
+                            String extName = ( url.getProtocol() == null ? "dubbo" : url.getProtocol() );
+                            此时的extName为registry 协议找到  RegistryProtocol 进行 export
+                            if(extName == null) throw new IllegalStateException("Fail to get extension(com.alibaba.dubbo.rpc.Protocol) name from url(" + url.toString() + ") use keys([protocol])");
+                            com.alibaba.dubbo.rpc.Protocol extension = (com.alibaba.dubbo.rpc.Protocol)ExtensionLoader.getExtensionLoader(com.alibaba.dubbo.rpc.Protocol.class).getExtension(extName);
+                            return extension.export(arg0);
+                        }*/
 
                         // 使用 Protocol 暴露 Invoker 对象
                         Exporter<?> exporter = protocol.export(wrapperInvoker);

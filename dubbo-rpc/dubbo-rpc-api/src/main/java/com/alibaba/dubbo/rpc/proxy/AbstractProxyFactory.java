@@ -32,7 +32,7 @@ public abstract class AbstractProxyFactory implements ProxyFactory {
 
     public <T> T getProxy(Invoker<T> invoker) throws RpcException {
         Class<?>[] interfaces = null;
-        // TODO 8022 芋艿
+
         String config = invoker.getUrl().getParameter("interfaces");
         if (config != null && config.length() > 0) {
             String[] types = Constants.COMMA_SPLIT_PATTERN.split(config);

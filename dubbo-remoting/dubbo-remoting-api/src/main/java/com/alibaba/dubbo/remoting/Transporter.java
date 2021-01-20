@@ -25,10 +25,6 @@ import javax.sound.midi.Receiver;
 
 /**
  * Transporter. (SPI, Singleton, ThreadSafe)
- * <p>
- * <a href="http://en.wikipedia.org/wiki/Transport_Layer">Transport Layer</a>
- * <a href="http://en.wikipedia.org/wiki/Client%E2%80%93server_model">Client/Server</a>
- *
  * 网络传输接口
  *
  * @see com.alibaba.dubbo.remoting.Transporters
@@ -45,7 +41,7 @@ public interface Transporter {
      * @param handler 通道处理器
      * @return server 服务器
      * @throws RemotingException 当绑定发生异常时
-     * @see com.alibaba.dubbo.remoting.Transporters#bind(URL, Receiver, ChannelHandler)
+     * @see com.alibaba.dubbo.remoting.Transporters#bind
      */
     @Adaptive({Constants.SERVER_KEY, Constants.TRANSPORTER_KEY})
     Server bind(URL url, ChannelHandler handler) throws RemotingException;
@@ -59,7 +55,7 @@ public interface Transporter {
      * @param handler 通道处理器
      * @return client 客户端
      * @throws RemotingException 当连接发生异常时
-     * @see com.alibaba.dubbo.remoting.Transporters#connect(URL, Receiver, ChannelListener)
+     * @see com.alibaba.dubbo.remoting.Transporters#connect
      */
     @Adaptive({Constants.CLIENT_KEY, Constants.TRANSPORTER_KEY})
     Client connect(URL url, ChannelHandler handler) throws RemotingException;

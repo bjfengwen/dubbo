@@ -42,16 +42,16 @@ public abstract class AbstractMethodConfig extends AbstractConfig {
     protected Integer retries;
 
     // max concurrent invocations
-    protected Integer actives; // TODO 芋艿
+    protected Integer actives;
 
     // load balance
     protected String loadbalance;
 
     // whether to async
-    protected Boolean async; // TODO 芋艿
+    protected Boolean async;
 
     // whether to ack async-sent
-    protected Boolean sent; // TODO 芋艿
+    protected Boolean sent;
 
     /**
      * the name of mock class which gets called when a service fails to execute
@@ -64,16 +64,16 @@ public abstract class AbstractMethodConfig extends AbstractConfig {
      *
      * 参见文档 <a href="本地伪装">http://dubbo.io/books/dubbo-user-book/demos/local-mock.html</>
      */
-    protected String mock; // TODO 芋艿
+    protected String mock;
 
     // merger
-    protected String merger; // TODO 芋艿
+    protected String merger;
 
     // cache
-    protected String cache; // TODO 芋艿
+    protected String cache;
 
     // validation
-    protected String validation; // TODO 芋艿
+    protected String validation;
 
     // customized parameters
     protected Map<String, String> parameters;

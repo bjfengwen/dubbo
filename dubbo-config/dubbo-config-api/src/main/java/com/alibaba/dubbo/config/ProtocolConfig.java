@@ -110,7 +110,7 @@ public class ProtocolConfig extends AbstractConfig {
     private String dispatcher;
 
     // networker
-    private String networker; // TODO ，芋艿
+    private String networker;
 
     // sever impl
     private String server;
@@ -122,10 +122,10 @@ public class ProtocolConfig extends AbstractConfig {
     private String telnet;
 
     // command line prompt
-    private String prompt; // TODO ，芋艿
+    private String prompt;
 
     // status check
-    private String status; // TODO ，芋艿
+    private String status;
 
     // whether to register
     private Boolean register;

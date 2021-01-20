@@ -60,7 +60,7 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
      *
      * 设为 true，表示使用缺省代理类名，即：接口名 + Local 后缀
      */
-    protected String local; // TODO 芋艿
+    protected String local;
     /**
      * local stub class name for the service interface
      * 服务接口客户端本地代理类名，用于在客户端执行本地逻辑，如本地缓存等。
@@ -71,13 +71,13 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
      *
      * 参见文档 <a href="本地存根">http://dubbo.io/books/dubbo-user-book/demos/local-stub.html</>
      */
-    protected String stub; // TODO 芋艿
+    protected String stub;
 
     // service monitor
     protected MonitorConfig monitor;
 
     // proxy type
-    protected String proxy; // TODO 芋艿
+    protected String proxy;
 
     // cluster type
     protected String cluster;
@@ -96,7 +96,7 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
     protected Integer connections;
 
     // layer
-    protected String layer; // TODO 芋艿
+    protected String layer;
 
     // application info
     protected ApplicationConfig application;
@@ -108,16 +108,16 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
     protected List<RegistryConfig> registries;
 
     // connection events
-    protected String onconnect; // TODO 芋艿
+    protected String onconnect;
 
     // disconnection events
-    protected String ondisconnect; // TODO 芋艿
+    protected String ondisconnect;
 
     // callback limits
     private Integer callbacks;
 
     // the scope for referring/exporting a service, if it's local, it means searching in current JVM only.
-    private String scope; // TODO 芋艿
+    private String scope;
 
     /**
      * 校验 RegistryConfig 配置数组。

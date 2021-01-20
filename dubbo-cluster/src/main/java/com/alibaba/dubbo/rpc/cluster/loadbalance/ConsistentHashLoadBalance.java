@@ -35,6 +35,7 @@ import java.util.concurrent.ConcurrentMap;
  *
  * 一致性 Hash，相同参数的请求总是发到同一提供者。
  * 当某一台提供者挂时，原本发往该提供者的请求，基于虚拟节点，平摊到其它提供者，不会引起剧烈变动。
+ *  hash的选择按照顺时针方向选择节点
  */
 public class ConsistentHashLoadBalance extends AbstractLoadBalance {
 

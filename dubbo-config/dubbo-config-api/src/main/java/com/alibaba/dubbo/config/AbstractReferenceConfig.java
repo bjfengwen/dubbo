@@ -42,7 +42,7 @@ public abstract class AbstractReferenceConfig extends AbstractInterfaceConfig {
     protected Boolean init;
 
     // whether to use generic interface
-    protected String generic; // TODO 芋艿
+    protected String generic;
 
     /**
      * 是否 JVM 本地调用。
@@ -55,12 +55,12 @@ public abstract class AbstractReferenceConfig extends AbstractInterfaceConfig {
     // lazy create connection
     protected Boolean lazy;
 
-    protected String reconnect; // TODO 芋艿
+    protected String reconnect;
 
     protected Boolean sticky;
 
     // whether to support event in stub. //TODO solve merge problem
-    protected Boolean stubevent;//= Constants.DEFAULT_STUB_EVENT; // TODO 芋艿
+    protected Boolean stubevent;//= Constants.DEFAULT_STUB_EVENT;
 
     // version
     protected String version;

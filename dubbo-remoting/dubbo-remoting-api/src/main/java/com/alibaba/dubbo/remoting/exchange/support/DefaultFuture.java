@@ -171,7 +171,11 @@ public class DefaultFuture implements ResponseFuture {
     public Object get() throws RemotingException {
         return get(timeout);
     }
-
+    //Dubbo RPC调用的流程：客户端调用RPC方法 -> 生成该调用的唯一ID ->
+    // 序列化信息后发送至服务端，同时判断此次调用类型是否为同步调用，
+    // 是则进行阻塞操作(done.await() -> 通信层得到服务端返回结果后反序列，根据ID获取到DefaultFuture对象，进行唤醒操作
+    //done.await(timeout, TimeUnit.MILLISECONDS);阻塞调用线程。
+    // 而在通信层获取到结果数据时，就会调用DefaultFuture#doReceived(Response res)方法进行唤醒：
     @Override
     public Object get(int timeout) throws RemotingException {
         if (timeout <= 0) {

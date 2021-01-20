@@ -173,7 +173,7 @@ public class UrlUtils {
         return registries;
     }
 
-    // 芋艿，可无视；测试类使用
+    //  可无视；测试类使用
     public static Map<String, Map<String, String>> convertRegister(Map<String, Map<String, String>> register) {
         Map<String, Map<String, String>> newRegister = new HashMap<String, Map<String, String>>();
         for (Map.Entry<String, Map<String, String>> entry : register.entrySet()) {
@@ -209,7 +209,7 @@ public class UrlUtils {
         return newRegister;
     }
 
-    // 芋艿，可无视；测试类使用
+    //  可无视；测试类使用
     public static Map<String, String> convertSubscribe(Map<String, String> subscribe) {
         Map<String, String> newSubscribe = new HashMap<String, String>();
         for (Map.Entry<String, String> entry : subscribe.entrySet()) {
@@ -236,7 +236,7 @@ public class UrlUtils {
         return newSubscribe;
     }
 
-    // 芋艿，可无视；测试类使用
+    //  可无视；测试类使用
     public static Map<String, Map<String, String>> revertRegister(Map<String, Map<String, String>> register) {
         Map<String, Map<String, String>> newRegister = new HashMap<String, Map<String, String>>();
         for (Map.Entry<String, Map<String, String>> entry : register.entrySet()) {
@@ -272,7 +272,7 @@ public class UrlUtils {
         return newRegister;
     }
 
-    // 芋艿，可无视；测试类使用
+    //  可无视；测试类使用
     public static Map<String, String> revertSubscribe(Map<String, String> subscribe) {
         Map<String, String> newSubscribe = new HashMap<String, String>();
         for (Map.Entry<String, String> entry : subscribe.entrySet()) {
@@ -299,7 +299,7 @@ public class UrlUtils {
         return newSubscribe;
     }
 
-    // 芋艿，可无视；测试类使用
+    //  可无视；测试类使用
     public static Map<String, Map<String, String>> revertNotify(Map<String, Map<String, String>> notify) {
         if (notify != null && notify.size() > 0) {
             Map<String, Map<String, String>> newNotify = new HashMap<String, Map<String, String>>();
@@ -340,7 +340,7 @@ public class UrlUtils {
         return notify;
     }
 
-    // 芋艿，可无视；测试类使用
+    //  可无视；测试类使用
     //compatible for dubbo-2.0.0
     public static List<String> revertForbid(List<String> forbid, Set<URL> subscribed) {
         if (forbid != null && !forbid.isEmpty()) {
@@ -362,7 +362,7 @@ public class UrlUtils {
         return forbid;
     }
 
-    // 芋艿，可无视；未调用
+    //  可无视；未调用
     public static URL getEmptyUrl(String service, String category) {
         String group = null;
         String version = null;

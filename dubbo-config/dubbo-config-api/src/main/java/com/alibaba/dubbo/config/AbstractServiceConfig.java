@@ -50,33 +50,33 @@ public abstract class AbstractServiceConfig extends AbstractInterfaceConfig {
     protected Boolean export;
 
     // weight
-    protected Integer weight; // TODO 芋艿
+    protected Integer weight;
 
     // document center
     protected String document;
 
     // whether to register as a dynamic service or not on register center
-    protected Boolean dynamic; // TODO 芋艿
+    protected Boolean dynamic;
 
     // whether to use token
-    protected String token; // TODO 芋艿
+    protected String token;
 
     // access log
-    protected String accesslog; // TODO 芋艿
+    protected String accesslog;
     /**
      * 注册中心配置数组
      */
     protected List<ProtocolConfig> protocols;
     // max allowed execute times
-    private Integer executes; // TODO 芋艿
+    private Integer executes;
     // whether to register
     private Boolean register;
 
     // warm up period
-    private Integer warmup; // TODO 芋艿
+    private Integer warmup;
 
     // serialization
-    private String serialization; // TODO 芋艿
+    private String serialization;
 
     public String getVersion() {
         return version;

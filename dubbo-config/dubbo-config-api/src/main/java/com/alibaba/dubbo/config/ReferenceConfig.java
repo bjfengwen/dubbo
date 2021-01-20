@@ -102,7 +102,7 @@ public class ReferenceConfig<T> extends AbstractReferenceConfig {
     // url for peer-to-peer invocation
     private String url;
     // method configs
-    private List<MethodConfig> methods; // TODO 芋艿
+    private List<MethodConfig> methods;
     // default config
     private ConsumerConfig consumer;
     private String protocol;
@@ -111,7 +111,7 @@ public class ReferenceConfig<T> extends AbstractReferenceConfig {
      * Service 对象
      */
     private transient volatile T ref;
-    private transient volatile Invoker<?> invoker; // TODO 芋艿
+    private transient volatile Invoker<?> invoker;
     /**
      * 是否已经初始化应用服务，参见 {@link #init()} 方法。
      *
@@ -414,7 +414,7 @@ public class ReferenceConfig<T> extends AbstractReferenceConfig {
         // 创建 Service 代理对象
         ref = createProxy(map);
 
-        // TODO 芋艿
+
         ConsumerModel consumerModel = new ConsumerModel(getUniqueServiceName(), this, ref, interfaceClass.getMethods());
         ApplicationModel.initConsumerModel(getUniqueServiceName(), consumerModel);
     }

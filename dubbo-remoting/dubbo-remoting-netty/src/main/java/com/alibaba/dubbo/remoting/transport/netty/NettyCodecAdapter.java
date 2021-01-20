@@ -164,7 +164,7 @@ final class NettyCodecAdapter {
                         break;
                     // 解码到消息，触发一条消息
                     } else {
-                        //is it possible to go here ? 芋艿：不可能，哈哈哈
+                        //is it possible to go here ?  不可能，哈哈哈
                         if (saveReaderIndex == message.readerIndex()) {
                             buffer = com.alibaba.dubbo.remoting.buffer.ChannelBuffers.EMPTY_BUFFER;
                             throw new IOException("Decode without read data.");

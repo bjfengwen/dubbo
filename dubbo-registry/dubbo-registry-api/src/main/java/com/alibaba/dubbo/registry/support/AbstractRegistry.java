@@ -72,7 +72,7 @@ public abstract class AbstractRegistry implements Registry {
     /**
      *  本地磁盘缓存。
      *
-     *  1. 其中特殊的 key 值 .registies 记录注册中心列表 TODO 8019 芋艿，特殊的 key 是
+     *  1. 其中特殊的 key 值 .registies 记录注册中心列表
      *  2. 其它均为 {@link #notified} 服务提供者列表
      */
     // Local disk cache, where the special key value.registies records the list of registry centers, and the others are the list of notified service providers
@@ -148,7 +148,7 @@ public abstract class AbstractRegistry implements Registry {
         // 加载本地磁盘缓存文件到内存缓存
         loadProperties();
         // 通知监听器，URL 变化结果
-        notify(url.getBackupUrls()); // 【TODO 8020】为什么构造方法，要通知，连监听器都没注册
+        notify(url.getBackupUrls()); // 为什么构造方法，要通知，连监听器都没注册
     }
 
     protected static List<URL> filterEmpty(URL url, List<URL> urls) {
@@ -302,7 +302,7 @@ public abstract class AbstractRegistry implements Registry {
             String value = (String) entry.getValue();
             if (key != null && key.length() > 0 // 非空
                     && key.equals(url.getServiceKey()) // 服务键匹配
-                    && (Character.isLetter(key.charAt(0)) || key.charAt(0) == '_') // TODO 芋艿，_ 是什么
+                    && (Character.isLetter(key.charAt(0)) || key.charAt(0) == '_')
                     && value != null && value.length() > 0) { // 值非空
                 String[] arr = value.trim().split(URL_SPLIT);
                 List<URL> urls = new ArrayList<URL>();

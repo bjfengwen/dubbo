@@ -22,7 +22,7 @@ import com.alibaba.dubbo.rpc.Invoker;
 /**
  * DelegateExporter
  */
-@Deprecated // add by 芋艿，并未使用
+@Deprecated //  并未使用
 public class DelegateExporter<T> implements Exporter<T> {
 
     private final Exporter<T> exporter;

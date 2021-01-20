@@ -119,7 +119,7 @@ final class NettyCodecAdapter {
                         break;
                     // 解码到消息，添加到 `out`
                     } else {
-                        //is it possible to go here ? 芋艿：不可能，哈哈哈
+                        //is it possible to go here ?  不可能，哈哈哈
                         if (saveReaderIndex == message.readerIndex()) {
                             throw new IOException("Decode without read data.");
                         }

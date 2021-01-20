@@ -345,7 +345,7 @@ public class DubboBeanDefinitionParser implements BeanDefinitionParser {
                 if (node instanceof Element) {
                     if (tag.equals(node.getNodeName())
                             || tag.equals(node.getLocalName())) { // 这三行，判断是否为指定要解析的子元素
-                        // 【TODO 8008】 芋艿，default 是干锤子的
+                        //  default 是干锤子的
                         if (first) {
                             first = false;
                             String isDefault = element.getAttribute("default");

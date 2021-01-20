@@ -32,7 +32,7 @@ public class ConsumerConfig extends AbstractReferenceConfig {
     private Boolean isDefault;
 
     // networking framework client uses: netty, mina, etc.
-    private String client; // TODO 芋艿
+    private String client;
 
     @Override
     public void setTimeout(Integer timeout) {

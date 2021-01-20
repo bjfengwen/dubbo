@@ -58,19 +58,19 @@ public class ProviderConfig extends AbstractServiceConfig {
     private String threadpool;
 
     // thread pool size (fixed size)
-    private Integer threads; // TODO 芋艿
+    private Integer threads;
 
     // IO thread pool size (fixed size)
-    private Integer iothreads; // TODO 芋艿
+    private Integer iothreads;
 
     // thread pool queue length
-    private Integer queues; // TODO 芋艿
+    private Integer queues;
 
     // max acceptable connections
-    private Integer accepts; // TODO 芋艿
+    private Integer accepts;
 
     // protocol codec
-    private String codec; // TODO 芋艿
+    private String codec;
 
     // charset
     private String charset;
@@ -82,34 +82,34 @@ public class ProviderConfig extends AbstractServiceConfig {
     private Integer buffer;
 
     // transporter
-    private String transporter; // TODO 芋艿
+    private String transporter;
 
     // how information gets exchanged
-    private String exchanger; // TODO 芋艿
+    private String exchanger;
 
     // thread dispatching mode
-    private String dispatcher; // TODO 芋艿
+    private String dispatcher;
 
     // networker
-    private String networker; // TODO 芋艿
+    private String networker;
 
     // server impl
-    private String server; // TODO 芋艿
+    private String server;
 
     // client impl
-    private String client; // TODO 芋艿
+    private String client;
 
     // supported telnet commands, separated with comma.
     private String telnet;
 
     // command line prompt
-    private String prompt; // TODO 芋艿
+    private String prompt;
 
     // status check
     private String status;
 
     // wait time when stop
-    private Integer wait; // TODO 芋艿
+    private Integer wait;
 
     // if it's default
     private Boolean isDefault;

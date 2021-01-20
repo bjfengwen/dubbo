@@ -40,6 +40,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * FailbackRegistry. (SPI, Prototype, ThreadSafe)
  *
  * 支持失败重试的 Registry 抽象类
+ * 失败自动恢复，后台记录失败请求，定时重发功能
  */
 public abstract class FailbackRegistry extends AbstractRegistry {
 
@@ -237,7 +238,10 @@ public abstract class FailbackRegistry extends AbstractRegistry {
             failedUnregistered.add(url);
         }
     }
-
+    //服务消费者启动时，会先向Zookeeper注册消费者节点信息，
+    // 然后订阅…/providers目录下提供者的URL地址；消费端也同样需要注册节点信息，
+    // 是因为监控中心需要对服务端和消费端都进行监控；
+    // 下面重点看一下订阅的相关代码，在FailbackRegistry中实现了subscribe方法：
     @Override
     public void subscribe(URL url, NotifyListener listener) {
         // 已销毁，跳过

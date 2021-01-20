@@ -29,7 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 服务提供者和消费者注册表
  *
- * 用于在线运维命令 QOS 使用，参见文档：http://dubbo.io/books/dubbo-user-book/references/qos.html
+ * 用于在线运维命令 QOS 使用
  *
  * @date 2017/11/23
  */

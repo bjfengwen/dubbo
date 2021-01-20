@@ -57,7 +57,7 @@ public class ApplicationConfig extends AbstractConfig {
     private String environment;
 
     // Java compiler
-    private String compiler; // TODO 芋艿
+    private String compiler;
 
     // logger
     private String logger;
@@ -69,16 +69,16 @@ public class ApplicationConfig extends AbstractConfig {
     private MonitorConfig monitor;
 
     // is default or not
-    private Boolean isDefault; // TODO 芋艿
+    private Boolean isDefault;
 
     /**
      * directory for saving thread dump
      *
      * @see <a href="http://dubbo.io/books/dubbo-user-book/demos/dump.html">线程栈自动 dump</a>
      */
-    private String dumpDirectory; // TODO 芋艿
+    private String dumpDirectory;
 
-    private Boolean qosEnable; // TODO 芋艿
+    private Boolean qosEnable;
 
     private Integer qosPort;
 

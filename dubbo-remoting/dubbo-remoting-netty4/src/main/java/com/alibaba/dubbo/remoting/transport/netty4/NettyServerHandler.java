@@ -66,7 +66,7 @@ public class NettyServerHandler extends ChannelDuplexHandler {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         // 交给下一个节点处理
-        // 芋艿：实际此处不要调用也没关系，因为 NettyServerHandler 没下一个节点。
+        // 实际此处不要调用也没关系，因为 NettyServerHandler 没下一个节点。
         ctx.fireChannelActive();
 
         // 创建 NettyChannel 对象

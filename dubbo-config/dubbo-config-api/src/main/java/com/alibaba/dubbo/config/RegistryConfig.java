@@ -48,20 +48,20 @@ public class RegistryConfig extends AbstractConfig {
     private Integer port;
 
     // protocol for register center
-    private String protocol; // TODO 芋艿
+    private String protocol;
 
     // client impl
-    private String transporter; // TODO 芋艿
+    private String transporter;
 
-    private String server; // TODO 芋艿
+    private String server;
 
-    private String client; // TODO 芋艿
+    private String client;
 
-    private String cluster; // TODO 芋艿
+    private String cluster;
 
-    private String group; // TODO 芋艿
+    private String group;
 
-    private String version; // TODO 芋艿
+    private String version;
 
     // request timeout in milliseconds for register center
     private Integer timeout;

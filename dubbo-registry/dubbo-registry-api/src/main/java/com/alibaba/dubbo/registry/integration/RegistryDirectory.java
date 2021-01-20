@@ -57,6 +57,13 @@ import java.util.Set;
  * RegistryDirectory
  *
  * 基于注册中心的 Directory 实现类
+ *
+ * 注册目录服务， 它的Invoker集合是从注册中心获取的， 它实现了NotifyListener接口实现了回调接口notify(List)。
+ * 比如消费方要调用某远程服务，会向注册中心订阅这个服务的所有服务提供方，
+ * 订阅时和服务提供方数据有变动时回调消费方的NotifyListener服务的notify方法NotifyListener.notify(List) 回调接口传入所有服务的提供方的url地址
+ * 然后将urls转化为invokers, 也就是refer应用远程服务到此时引用某个远程服务的RegistryDirectory中有对这个远程服务调用的所有invokers。
+ *
+ * RegistryDirectory.list(invocation)就是根据服务调用方法获取所有的远程服务引用的invoker执行对象
  */
 public class RegistryDirectory<T> extends AbstractDirectory<T> implements NotifyListener {
 
@@ -266,7 +273,6 @@ public class RegistryDirectory<T> extends AbstractDirectory<T> implements Notify
             return;
         }
         // 取消订阅
-        // unsubscribe.
         try {
             if (getConsumerUrl() != null && registry != null && registry.isAvailable()) {
                 registry.unsubscribe(getConsumerUrl(), this);

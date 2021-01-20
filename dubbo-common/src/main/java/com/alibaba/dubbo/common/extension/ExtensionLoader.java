@@ -50,7 +50,6 @@ import java.util.regex.Pattern;
  *
  * 另外，该类同时是 ExtensionLoader 的管理容器，例如 {@link #EXTENSION_INSTANCES} 、{@link #EXTENSION_INSTANCES} 属性。
  *
- * @see <a href="http://java.sun.com/j2se/1.5.0/docs/guide/jar/jar.html#Service%20Provider">Service Provider in Java 5</a>
  * @see com.alibaba.dubbo.common.extension.SPI
  * @see com.alibaba.dubbo.common.extension.Adaptive
  * @see com.alibaba.dubbo.common.extension.Activate
@@ -871,6 +870,11 @@ public class ExtensionLoader<T> {
                                                 }
                                             } else {
                                                 // 缓存拓展 Wrapper 实现类到 `cachedWrapperClasses`
+                                                //包装类是因为一个扩展接口可能有多个扩展实现类，而这些扩展实现类会有一个相同的或者公共的逻辑，
+                                                // 如果每个实现类都写一遍代码就重复了，并且比较不好维护。
+                                                //
+                                                //因此就搞了个包装类，Dubbo 里帮你自动包装，只需要某个扩展类的构造函数只有一个参数，并且是扩展接口类型，
+                                                // 就会被判定为包装类，然后记录下来，用来包装别的实现类。
                                                 try {
                                                     clazz.getConstructor(type);
                                                     Set<Class<?>> wrappers = cachedWrapperClasses;
@@ -995,13 +999,13 @@ public class ExtensionLoader<T> {
 
     /**
      * 自动生成自适应拓展的代码实现的字符串
-     *
      * @return 代码字符串
      */
     private String createAdaptiveExtensionClassCode() {
         StringBuilder codeBuidler = new StringBuilder();
         // 遍历方法数组，判断有 @Adaptive 注解
         Method[] methods = type.getMethods();
+
         boolean hasAdaptiveAnnotation = false;
         for (Method m : methods) {
             if (m.isAnnotationPresent(Adaptive.class)) {

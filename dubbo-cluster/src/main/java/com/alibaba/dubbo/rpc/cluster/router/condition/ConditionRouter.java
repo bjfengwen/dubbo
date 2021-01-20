@@ -42,6 +42,7 @@ import java.util.regex.Pattern;
  * ConditionRouter
  *
  * 条件 Router 实现类
+ * dubbo路由功能貌似用的不多
  */
 public class ConditionRouter implements Router {
 
@@ -103,7 +104,7 @@ public class ConditionRouter implements Router {
     }
 
     private static Map<String, MatchPair> parseRule(String rule) throws ParseException {
-//        System.out.println("rule: " + rule); // add by 芋艿，方便大家看
+//        System.out.println("rule: " + rule); //  方便大家看
         Map<String, MatchPair> condition = new HashMap<String, MatchPair>();
         if (StringUtils.isBlank(rule)) {
             return condition;
@@ -116,7 +117,7 @@ public class ConditionRouter implements Router {
         while (matcher.find()) { // Try to match one by one
             String separator = matcher.group(1);
             String content = matcher.group(2);
-//            System.out.println(separator + "\t" + content); // add by 芋艿，方便大家看
+//            System.out.println(separator + "\t" + content); //  方便大家看
             // Start part of the condition expression.
             if (separator == null || separator.length() == 0) {
                 pair = new MatchPair();

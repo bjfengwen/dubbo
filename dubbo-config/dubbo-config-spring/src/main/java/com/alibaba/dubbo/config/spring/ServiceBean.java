@@ -75,6 +75,7 @@ public class ServiceBean<T> extends ServiceConfig<T> implements InitializingBean
         return SPRING_CONTEXT;
     }
 
+    //实现了ApplicationContextAware接口的bean，当spring容器初始化的时候，会自动的将ApplicationContext注入进来
     public void setApplicationContext(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
         SpringExtensionFactory.addApplicationContext(applicationContext);
@@ -112,7 +113,9 @@ public class ServiceBean<T> extends ServiceConfig<T> implements InitializingBean
     public Service getService() {
         return service;
     }
-
+    //ApplicationEvent事件监听，spring容器启动后会发一个事件通知。
+    // 被重写的方法为:onApplicationEvent,onApplicationEvent方法传入的对象是ContextRefreshedEvent。
+    // 这个对象是当Spring的上下文被刷新或者加载完毕的时候触发的。因此服务就是在Spring的上下文刷新后进行导出操作的
     public void onApplicationEvent(ContextRefreshedEvent event) {
         if (isDelay() && !isExported() && !isUnexported()) {
             if (logger.isInfoEnabled()) {

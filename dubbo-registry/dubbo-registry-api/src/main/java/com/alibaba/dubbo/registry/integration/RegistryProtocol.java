@@ -79,9 +79,27 @@ public class RegistryProtocol implements Protocol {
     private Protocol protocol;
     /**
      * RegistryFactory 自适应拓展实现类，通过 Dubbo SPI 自动注入。
+     * 通过set注入
      */
     private RegistryFactory registryFactory;
     private ProxyFactory proxyFactory;
+
+    public void setCluster(Cluster cluster) {
+        this.cluster = cluster;
+    }
+
+    public void setProtocol(Protocol protocol) {
+        this.protocol = protocol;
+    }
+
+    public void setRegistryFactory(RegistryFactory registryFactory) {
+        this.registryFactory = registryFactory;
+    }
+
+    public void setProxyFactory(ProxyFactory proxyFactory) {
+        this.proxyFactory = proxyFactory;
+    }
+
 
     public RegistryProtocol() {
         INSTANCE = this;
@@ -110,21 +128,6 @@ public class RegistryProtocol implements Protocol {
         }
     }
 
-    public void setCluster(Cluster cluster) {
-        this.cluster = cluster;
-    }
-
-    public void setProtocol(Protocol protocol) {
-        this.protocol = protocol;
-    }
-
-    public void setRegistryFactory(RegistryFactory registryFactory) {
-        this.registryFactory = registryFactory;
-    }
-
-    public void setProxyFactory(ProxyFactory proxyFactory) {
-        this.proxyFactory = proxyFactory;
-    }
 
     public int getDefaultPort() {
         return 9090;
@@ -158,7 +161,7 @@ public class RegistryProtocol implements Protocol {
         //to judge to delay publish whether or not
         boolean register = registedProviderUrl.getParameter("register", true);
 
-        // 向注册中心订阅服务消费者
+        //
         ProviderConsumerRegTable.registerProvider(originInvoker, registryUrl, registedProviderUrl);
 
         // 向注册中心注册服务提供者（自己）
@@ -205,6 +208,7 @@ public class RegistryProtocol implements Protocol {
                     final Invoker<?> invokerDelegete = new InvokerDelegete<T>(originInvoker, getProviderUrl(originInvoker));
                     // 暴露服务，创建 Exporter 对象
                     // 使用 创建的Exporter对象 + originInvoker ，创建 ExporterChangeableWrapper 对象
+                    //主要就是根据URL上 Dubbo 协议暴露出 exporter，接下来就看下 DubboProtocol#export 方法。
                     exporter = new ExporterChangeableWrapper<T>((Exporter<T>) protocol.export(invokerDelegete), originInvoker);
                     // 添加到 `bounds`
                     bounds.put(key, exporter);
@@ -239,13 +243,52 @@ public class RegistryProtocol implements Protocol {
     }
 
     /**
-     * Get an instance of registry based on the address of invoker
+     * 1把url转化为对应配置的注册中心的具体协议
+     * 2根据具体协议，从registryFactory中获得指定的注册中心实现
      *
-     * @param originInvoker
-     * @return
+     *  public void setRegistryFactory(RegistryFactory registryFactory) {
+     *      this.registryFactory = registryFactory;
+     *  }
+     * 按照扩展点的加载规则，我们可以先看看/META-INF/dubbo/internal路径下找到RegistryFactory的配置文件.这个factory有多个扩展点的实现。
+     *
+     * dubbo=org.apache.dubbo.registry.dubbo.DubboRegistryFactory
+     * multicast=org.apache.dubbo.registry.multicast.MulticastRegistryFactory
+     * zookeeper=org.apache.dubbo.registry.zookeeper.ZookeeperRegistryFactory
+     * redis=org.apache.dubbo.registry.redis.RedisRegistryFactory
+     * consul=org.apache.dubbo.registry.consul.ConsulRegistryFactory
+     * etcd3=org.apache.dubbo.registry.etcd.EtcdRegistryFactory
+     * 接着，找到RegistryFactory的实现, 发现它里面有一个自适应的方法，根据url中protocol传入的值进行适配
+     *
+
+     * @SPI("dubbo")
+     * public interface RegistryFactory {
+     *
+     *     @Adaptive({"protocol"})
+     *     Registry getRegistry(URL url);
+     * }
+     * RegistryFactory$Adaptive
+     * 由于在前面的代码中，url中的protocol已经改成了zookeeper，
+     * 那么这个时候根据zookeeper获得的spi扩展点应该是ZookeeperRegistryFactory
+     *
+     * import org.apache.dubbo.common.extension.ExtensionLoader;
+     * public class RegistryFactory$Adaptive implements org.apache.dubbo.registry.RegistryFactory {
+     *     public org.apache.dubbo.registry.Registry getRegistry(org.apache.dubbo.common.URL arg0)  {
+     *         if (arg0 == null) throw new IllegalArgumentException("url == null");
+     *         org.apache.dubbo.common.URL url = arg0;
+     *         String extName = ( url.getProtocol() == null ? "dubbo" : url.getProtocol() );
+     *         if(extName == null) throw new IllegalStateException("Failed to get extension (org.apache.dubbo.registry.RegistryFactory) name from url (" + url.toString() + ") use keys([protocol])");
+     *         org.apache.dubbo.registry.RegistryFactory extension = (org.apache.dubbo.registry.RegistryFactory)ExtensionLoader.getExtensionLoader(org.apache.dubbo.registry.RegistryFactory.class).getExtension(extName);
+     *         return extension.getRegistry(arg0);
+     *     }
+     * }
+     * 它通过传入的URL的protocol协议字段排判断是什么类型注册中心。例如，url的protocol的协议是zookeeper，
+     * 那么就会根据SPI的ExtensionLoader.getExtensionLoader(RegistryFactory.class).getExtension（"zookeeper"）得到一个产生ZooKeeper注册中心的工厂，
+     * 也就是ZookeeperRegistryFactory，而ZookeeperRegistryFactory这个类的getRegistry就是返回一个Zookeeper注册中心。
      */
     private Registry getRegistry(final Invoker<?> originInvoker) {
+        //把url转化为配置的具体协议，比如zookeeper://ip:port. 这样后续获得的注册中心就会是基于zk的实现
         URL registryUrl = getRegistryUrl(originInvoker);
+        //此时registryFactory的实现类为ZookeeperRegistryFactory
         return registryFactory.getRegistry(registryUrl);
     }
 
@@ -324,9 +367,9 @@ public class RegistryProtocol implements Protocol {
     public <T> Invoker<T> refer(Class<T> type, URL url) throws RpcException {
         // 获得真实的注册中心的 URL
         url = url.setProtocol(url.getParameter(Constants.REGISTRY_KEY, Constants.DEFAULT_REGISTRY)).removeParameter(Constants.REGISTRY_KEY);
-        // 获得注册中心
+        // 获得注册中心,从URL中获取 ,registryFactory=zookeeperRegistryFactory
         Registry registry = registryFactory.getRegistry(url);
-        // TODO 芋艿
+
         if (RegistryService.class.equals(type)) {
             return proxyFactory.getInvoker((T) registry, type, url);
         }
