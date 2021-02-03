@@ -20,6 +20,7 @@ import com.alibaba.dubbo.demo.DemoService;
 import com.alibaba.dubbo.demo.ParamCallback;
 import com.alibaba.dubbo.demo.TestException;
 import com.alibaba.dubbo.demo.entity.User;
+import com.alibaba.dubbo.demo.enumx.Sex;
 import com.alibaba.dubbo.rpc.RpcContext;
 import com.alibaba.fastjson.JSON;
 
@@ -32,6 +33,11 @@ public class DemoServiceImpl implements DemoService {
     public String sayHello(String name) {
         System.out.println("[" + new SimpleDateFormat("HH:mm:ss").format(new Date()) + "] Hello " + name + ", request from consumer: " + RpcContext.getContext().getRemoteAddress());
         return "localhost: Hello " + name + ", response form provider: " + RpcContext.getContext().getLocalAddress();
+    }
+
+    @Override
+    public String asyncSayHello(String name) {
+        return null;
     }
 
     @Override
@@ -98,6 +104,26 @@ public class DemoServiceImpl implements DemoService {
 
     @Override
     public void demo(String name, String password, User users) {
+
+    }
+
+    @Override
+    public void demo(Sex sex) {
+
+    }
+
+    @Override
+    public void hello(String name) {
+
+    }
+
+    @Override
+    public void hello01(String name) {
+
+    }
+
+    @Override
+    public void hello02(String name) {
 
     }
 

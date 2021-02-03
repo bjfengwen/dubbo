@@ -18,19 +18,21 @@ limitations under the License.
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
        xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
        http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-    <!-- consumer's application name, used for tracing dependency relationship (not a matching criterion),
-    don't set it same as provider -->
-    <dubbo:application name="demo-consumer" />
+    <!-- provider's application name, used for tracing dependency relationship -->
+    <dubbo:application name="demo-provider"/>
+    <dubbo:consumer check="false" />
+    <!-- 本地开发时不要发布到注册中心,添加 register="false" -->
+    <dubbo:registry  protocol="zookeeper" address="192.168.86.60:2181" register="false" />
+    <!-- use dubbo protocol to export service on port 20880 -->
+    <dubbo:protocol name="dubbo" port="20880" />
 
-    <!-- use multicast registry center to discover service -->
-    <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
+    <!-- service implementation, as same as regular local bean -->
+    <bean id="demoService" class="com.alibaba.dubbo.demo.provider.DemoServiceImpl"/>
 
-    <!-- generate proxy for the remote service, then demoService can be used in the same way as the
-    local regular interface -->
-    <dubbo:reference id="demoService" check="false" interface="com.alibaba.dubbo.demo.DemoService" generic="true" timeout="100000">
-    </dubbo:reference>
+    <!-- declare the service interface to be exported -->
+    <dubbo:service interface="com.alibaba.dubbo.demo.DemoService" ref="demoService"/>
 
 </beans>

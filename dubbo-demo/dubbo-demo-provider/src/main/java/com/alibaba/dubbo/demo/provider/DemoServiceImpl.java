@@ -43,6 +43,16 @@ public class DemoServiceImpl implements DemoService {
     }
 
     @Override
+    public String asyncSayHello(String name) {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "async Hello " + name + ", response form provider: " + RpcContext.getContext().getLocalAddress();
+    }
+
+    @Override
     public void bye(Object o) {
         System.out.println(JSON.toJSONString(o));
         System.out.println(o.getClass());

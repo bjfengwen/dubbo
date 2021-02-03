@@ -32,10 +32,10 @@ limitations under the License.
     <!--<dubbo:registry address="multicast://224.5.6.7:1234"/>-->
     <!--<dubbo:registry address="zookeeper://127.0.0.1:2181"/>-->
     <!--<dubbo:registry address="zookeeper://127.0.0.1:2181||10.20.153.11:2181,10.20.153.12:2181"/>-->
-    <dubbo:registry address="zookeeper://127.0.0.1:2181"  />
+<!--    <dubbo:registry address="zookeeper://172.16.6.182:2181?backup=172.16.6.183:2181,172.16.6.184:2181"  />-->
     <!--<dubbo:registry address="redis://127.0.0.1:6379" />-->
-
-
+    <!--<dubbo:registry address="zookeeper://127.0.0.1:2181"/>-->
+    <dubbo:registry protocol="dubbo" address="127.0.0.1:2181"></dubbo:registry>
     <bean id="demoDAO" class="com.alibaba.dubbo.demo.provider.DemoDAO" />
 
     <!-- service implementation, as same as regular local bean -->
@@ -44,7 +44,7 @@ limitations under the License.
     <!--<bean id="genericService" class="com.alibaba.dubbo.demo.provider.MyGenericService" />-->
 
     <!-- declare the service interface to be exported -->
-    <dubbo:service  interface="com.alibaba.dubbo.demo.DemoService" group="g1" ref="demoService" filter="demo" deprecated="false" callbacks="1000" timeout="200000" accesslog="true"
+    <dubbo:service  interface="com.alibaba.dubbo.demo.DemoService"  ref="demoService" filter="demo" deprecated="false" callbacks="1000" timeout="200000" accesslog="true"
         >
     <!--<dubbo:service interface="com.alibaba.dubbo.demo.DemoService" protocol="dubbo" ref="demoService"/>-->
     <!--<dubbo:service id="sa" interface="com.alibaba.dubbo.demo.DemoService" protocol="dubbo" class="com.alibaba.dubbo.demo.provider.DemoServiceImpl">-->
@@ -107,5 +107,7 @@ limitations under the License.
     <!-- use dubbo protocol to export service on port 20880 -->
     <dubbo:protocol accesslog="true" name="dubbo" port="-1" server="netty4" />
     <!--<dubbo:protocol id="pb" name="dubbo" port="20881"/>-->
-
+    <bean id="barServiceImpl" class="com.alibaba.dubbo.demo.provider.BarServiceImpl"/>
+    <dubbo:service  interface="com.alibaba.dubbo.demo.BarService"  ref="barServiceImpl"    timeout="200000" accesslog="true"
+    />
 </beans>

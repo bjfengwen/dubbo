@@ -21,6 +21,11 @@ public class DemoServiceStub implements DemoService {
     }
 
     @Override
+    public String asyncSayHello(String name) {
+        return null;
+    }
+
+    @Override
     public void bye(Object o) {
         System.out.println("o");
     }

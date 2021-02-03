@@ -28,6 +28,8 @@ public interface DemoService {
 
     String sayHello(@NotNull(message = "医院编号不能为空")String name);
 
+    String asyncSayHello(String name);
+
     void bye(Object o);
 
     void callbackParam(String msg, ParamCallback callback);
@@ -64,5 +66,6 @@ public interface DemoService {
     void hello01(String name);
 
     void hello02(String name);
+
 
 }

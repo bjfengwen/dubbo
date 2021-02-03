@@ -26,7 +26,7 @@ public class RestProvider {
         System.setProperty("java.net.preferIPv4Stack", "true");
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"META-INF/spring/dubbo-demo-provider.xml"});
         context.start();
-
+        //https://mp.weixin.qq.com/s?__biz=MzU4NzU0MDIzOQ==&mid=2247485479&idx=2&sn=faf157fbe7a69c31bdb9cd72ee3b455a&chksm=fdeb3a47ca9cb35189f93c7558b22090e545b116baf1d24c5bdee4c53fa436bb27283144699c&scene=21#wechat_redirect
         System.in.read(); // press any key to exit
     }
 

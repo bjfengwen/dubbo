@@ -23,21 +23,24 @@ limitations under the License.
 
     <bean id="callbackDemo" class="com.alibaba.dubbo.demo.consumer.callback.CallbackImpl" />
 
-    <!-- consumer's application name, used for tracing dependency relationship (not a matching criterion),
-    don't set it same as provider -->
+
     <dubbo:application name="demo-consumer" />
 
     <!-- use multicast registry center to discover service -->
     <!--<dubbo:registry address="multicast://224.5.6.7:1234"/>-->
-    <dubbo:registry id="zk01" address="zookeeper://127.0.0.1:2181">
-    </dubbo:registry>
-    <dubbo:registry id="zk02" address="zookeeper://127.0.0.1:2181"/>
+<!--    <dubbo:registry id="zk01" address="zookeeper://127.0.0.1:2181">-->
+<!--    </dubbo:registry>-->
+    <dubbo:registry protocol="zookeeper" address="172.16.6.182:2181,172.16.6.183:2181,172.16.6.184:2181"  />
     <!--<dubbo:registry address="redis://127.0.0.1:6379"/>-->
 
+<!--    关闭所有服务的启动时检查：(没有提供者时报错) 写在定义服务消费者一方-->
+    <dubbo:consumer check="false" />
+<!--    dubbo协议在20880端口暴露-->
+    <dubbo:protocol name="dubbo" port="20880"/>
     <!-- generate proxy for the remote service, then demoService can be used in the same way as the
     local regular interface -->
-    <dubbo:reference id="demoService" group="g1" check="true" interface="com.alibaba.dubbo.demo.DemoService"
-                     client="netty4" timeout="10000" callbacks="1000" registry="zk01" filter="demo2">
+    <dubbo:reference id="demoService"  interface="com.alibaba.dubbo.demo.DemoService"
+                     client="netty4" timeout="10000" callbacks="1000" filter="demo2">
         <!--<dubbo:method name="sayHello" />-->
 
         <!--url="registry://127.0.0.1:2181?registry=zookeeper;127.0.0.1:2181;127.0.0.1:27018"-->
@@ -45,8 +48,20 @@ limitations under the License.
         <dubbo:parameter key="payload" value="1000" />
 
 
-        <!--<dubbo:method name="sayHello" async="true" onreturn="callbackDemo.done" />-->
+        <dubbo:method name="asyncSayHello" async="true"   />
         
+    </dubbo:reference>
+
+
+    <dubbo:reference id="barService"  interface="com.alibaba.dubbo.demo.BarService"
+                     client="netty4" timeout="10000" callbacks="1000" filter="demo2">
+        <!--<dubbo:method name="sayHello" />-->
+
+        <!--url="registry://127.0.0.1:2181?registry=zookeeper;127.0.0.1:2181;127.0.0.1:27018"-->
+
+
+        <dubbo:method name="add" async="true"   />
+        <dubbo:method name="multi" async="true"   />
     </dubbo:reference>
 
     <!--<dubbo:reference id="demoService2" group="g2" check="false" interface="com.alibaba.dubbo.demo.DemoService" client="netty4" timeout="10000" callbacks="1000" registry="zk01" cluster="failback">-->
